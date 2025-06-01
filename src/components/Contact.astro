@@ -1,0 +1,51 @@
+---
+import { SOCIALS, COLORS } from '@consts';
+import TitleLink from '@/components/TitleLink.astro';
+type Props = {
+  logoId: number;
+};
+
+const { logoId } = Astro.props;
+---
+
+
+<section class="animate">
+  <div>
+    <TitleLink
+      number={2}
+      title="Contactons-nous !"
+      className="font-semibold text-clip bg-gradient-logo"
+    />
+
+    <p>Une question ou un projet à concrétiser ?</p>
+
+    <div class="grid gap-y-2 mt-4">
+      {
+        SOCIALS.map((social, index) => (
+          <>
+            <div
+              class="flex items-center text-clip bg-gradient-logo contact-gradient"
+              style={`--delay:${index / 6}s;--color-1:rgb(${COLORS.LOGO[logoId - 1][0]});--color-2:rgb(${COLORS.LOGO[logoId - 1][1]});--color-3:rgb(${COLORS.LOGO[logoId - 1][2]});`}
+            >
+              <div
+                class="flex items-center w-[100px] min-[375px]:w-[120px] min-[480px]:w-[140px]"
+                title={social.NAME}
+              >
+                <p class="whitespace-nowrap truncate">{social.NAME}</p>
+              </div>
+              <div class="truncate">
+                <a
+                  href={social.HREF}
+                  target="_blank"
+                  class="w-fit group flex items-center hover:underline hover:decoration-black dark:hover:decoration-white"
+                >
+                  <span>{social.TEXT}</span>
+                </a>
+              </div>
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</section>

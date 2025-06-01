@@ -1,0 +1,23 @@
+---
+import slugger from '@lib/slugger';
+type Props = {
+  number: number
+  title: string
+  className?: string
+}
+const { number, title, className } = Astro.props
+---
+
+{
+    number === 2 ?
+      <h2 id={slugger(title)} class={`${className ? `${className} ` : ''}scroll-mt-24 hover:underline hover:decoration-black dark:hover:decoration-white`}><a href={`#${slugger(title)}`} class="flex items-center justify-center"><svg class="size-4 min-w-4 min-h-4 fill-current mr-2 flex"><use href="/ui.svg#link"></use></svg> {title}</a></h2>
+    : number === 3 ?
+      <h3 id={slugger(title)} class={`${className ? `${className} ` : ''}scroll-mt-24 hover:underline hover:decoration-black dark:hover:decoration-white`}><a href={`#${slugger(title)}`} class="flex items-center justify-center"><svg class="size-3 min-w-3 min-h-3 fill-current mr-2 flex"><use href="/ui.svg#link"></use></svg> {title}</a></h3>
+    : number === 4 ?
+      <h4 id={slugger(title)} class={`${className ? `${className} ` : ''}scroll-mt-24 hover:underline hover:decoration-black dark:hover:decoration-white`}><a href={`#${slugger(title)}`} class="flex items-center justify-center"><svg class="size-2 min-w-2 min-h-2 fill-current mr-2 flex"><use href="/ui.svg#link"></use></svg> {title}</a></h4>
+    : number === 5 ?
+      <h5 id={slugger(title)} class={`${className ? `${className} ` : ''}scroll-mt-24 hover:underline hover:decoration-black dark:hover:decoration-white`}><a href={`#${slugger(title)}`} class="flex items-center justify-center"><svg class="size-2 min-w-2 min-h-2 fill-current mr-2 flex"><use href="/ui.svg#link"></use></svg> {title}</a></h5>
+    : number === 6 ? 
+      <h6 id={slugger(title)} class={`${className ? `${className} ` : ''}scroll-mt-24 hover:underline hover:decoration-black dark:hover:decoration-white`}><a href={`#${slugger(title)}`} class="flex items-center justify-center"><svg class="size-2 min-w-2 min-h-2 fill-current mr-2 flex"><use href="/ui.svg#link"></use></svg> {title}</a></h6>
+    : {title}
+}

@@ -1,0 +1,531 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import ArrowCard from '@components/ArrowCard';
+import StackCard from '@components/StackCard.astro';
+import { SITE, COLORS } from '@consts';
+import TitleLink from '@components/TitleLink.astro';
+import Contact from '@components/Contact.astro';
+
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const projects = (await getCollection('projet'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const designs = [
+  {
+    text: 'Figma',
+    icon: 'figma',
+    href: 'https://figma.com',
+    title: "Outil de conception d'interface utilisateur",
+  },
+  {
+    text: 'Dribbble',
+    icon: 'dribbble',
+    href: 'https://dribbble.com',
+    title: 'Plateforme pour découvrir et partager des travaux de design',
+  },
+];
+
+const languages = [
+  {
+    text: 'NodeJS',
+    icon: 'nodejs',
+    href: 'https://nodejs.org',
+    title: 'Environnement de développement JavaScript côté serveur',
+  },
+  {
+    text: 'Typescript',
+    icon: 'typescript',
+    href: 'https://www.typescriptlang.org',
+    title: 'Langage de programmation JavaScript avec typage statique',
+  },
+  {
+    text: 'SASS',
+    icon: 'sass',
+    href: 'https://sass-lang.com',
+    title:
+      'Langage de feuille de style pour le web avec des fonctionnalités avancées',
+  },
+];
+
+const fronts = [
+  {
+    text: 'Next',
+    icon: 'next',
+    href: 'https://nextjs.org',
+    title:
+      'Framework React pour le rendu côté serveur et les applications web statiques',
+  },
+  {
+    text: 'React',
+    icon: 'react',
+    href: 'https://react.dev',
+    title: 'Bibliothèque JavaScript pour construire des interfaces utilisateur',
+  },
+  {
+    text: 'Astro',
+    icon: 'astro',
+    href: 'https://astro.build',
+    title: 'Framework pour créer des sites web ultra-rapides',
+  },
+  {
+    text: 'Svelte',
+    icon: 'svelte',
+    href: 'https://svelte.dev',
+    title:
+      'Framework JavaScript pour construire des interfaces utilisateur réactives',
+  },
+];
+
+const apis = [
+  {
+    text: 'Fastify',
+    icon: 'fastify',
+    href: 'https://fastify.dev',
+    title: 'Framework web rapide et léger pour Node.js',
+  },
+  {
+    text: 'Express',
+    icon: 'express',
+    href: 'https://expressjs.com',
+    title: 'Framework web minimaliste pour Node.js',
+  },
+];
+
+const databases = [
+  {
+    text: 'PostgreSQL',
+    icon: 'postgresql',
+    href: 'https://www.postgresql.org',
+    title: 'Système de gestion de base de données relationnelle',
+  },
+  {
+    text: 'Redis',
+    icon: 'redis',
+    href: 'https://redis.io',
+    title: 'Système de gestion de base de données clé-valeur en mémoire',
+  },
+  {
+    text: 'MySQL',
+    icon: 'mysql',
+    href: 'https://www.mysql.com',
+    title: 'Système de gestion de base de données relationnelle',
+  },
+  {
+    text: 'MongDB',
+    icon: 'mongodb',
+    href: 'https://www.mongodb.com',
+    title: 'Base de données NoSQL orientée documents',
+  },
+];
+
+const ops = [
+  {
+    text: 'Docker',
+    icon: 'docker',
+    href: 'https://www.docker.com',
+    title: 'Plateforme de conteneurisation pour déployer des applications',
+  },
+  {
+    text: 'Gitlab CI',
+    icon: 'gitlab',
+    href: 'https://gitlab.com',
+    title: "Outil d'intégration continue et de déploiement continu",
+  },
+  {
+    text: 'Ansible',
+    icon: 'ansible',
+    href: 'https://www.ansible.com',
+    title: "Outil de gestion de configuration et d'automatisation",
+  },
+];
+
+const deploy = [
+  {
+    text: 'Vercel',
+    icon: 'vercel',
+    href: 'https://vercel.com',
+    title: 'Plateforme de déploiement pour les applications front-end',
+  },
+  {
+    text: 'Ionos',
+    icon: 'ionos',
+    href: 'https://www.ionos.fr',
+    title: "Service d'hébergement web et de solutions cloud",
+  },
+  {
+    text: 'OVH',
+    icon: 'ovh',
+    href: 'https://www.ovhcloud.com/fr',
+    title: "Fournisseur de services cloud et d'hébergement web",
+  },
+  {
+    text: 'Heroku',
+    icon: 'heroku',
+    href: 'https://www.heroku.com',
+    title: 'Plateforme cloud pour déployer des applications web',
+  },
+  {
+    text: 'Render',
+    icon: 'render',
+    href: 'https://render.com',
+    title: 'Service de déploiement complet pour applications modernes',
+  },
+];
+---
+
+<PageLayout
+  title="Bienvenue"
+  description={SITE.DESCRIPTION}
+  keywords={SITE.KEYWORDS}
+  logoId={1}
+  galaxyBg={false}
+>
+  <section class="relative h-screen w-full">
+    <div
+      id="planetcont"
+      class="animate absolute inset-0 top-1/4 overflow-hidden"
+    >
+      <div
+        id="crescent"
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%"
+      >
+        <div
+          id="planet"
+          class="w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center"
+        >
+          <div
+            id="blur"
+            class="w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="animate absolute h-full w-full flex items-center justify-center"
+    >
+      <div class="relative w-full h-full flex items-center justify-center">
+        <div class="p-5 text-center">
+          <p
+            class="animated text-lg md:text-xl lg:text-2xl font-semibold opacity-75"
+          >
+            Bonjour, je suis Morgan
+          </p>
+          <h1
+            class="mx-auto animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-clip bg-gradient-logo"
+          >
+            Développeur web FullStack
+          </h1>
+          <p class="animated text-sm md:text-base lg:text-lg opacity-75">
+            depuis 4 ans dans l'écosystème Javascript.
+          </p>
+          <div
+            id="ctaButtons"
+            class="animated flex flex-wrap gap-4 justify-center mt-5"
+          >
+            <a
+              href="/projets"
+              class="py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend"
+            >
+              Inspecter mes projets
+            </a>
+            <a
+              href="/blog/02-ma-configuration-post-installation-d-arch-linux"
+              class="py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base text-white dark:text-black bg-gradient-logo"
+            >
+              Lire mon dernier article
+            </a>
+            <a
+              href="/parcours"
+              class="py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
+            >
+              Découvrir mon parcours
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="relative bg-white/60 dark:bg-black/60">
+    <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
+      <section class="animate">
+        <article>
+          <p>
+            Je suis un <b><i>concepteur développeur web</i></b> — <b
+              ><i>intégrateur de site web performant</i></b
+            >, <b><i>étudiant à vie</i></b>, <b><i>direct</i></b>, <b
+              ><i>curieux</i></b
+            >, et <b><i>dactylographe à mes heures perdues</i></b>.
+          </p>
+          <p>
+            J'adore prendre un projet dès son commencement et le mener jusqu'à
+            sa réalisation complète. Je suis motivé par des projets insolite qui
+            nécessitent des recherches autonomes et une résolution dynamique de
+            problèmes. Ma véritable passion est d'implémenter des designs
+            frontaux créatifs avec des approches uniques en matière de couleur,
+            de typographie et d'animation.
+          </p>
+          <p
+            style={`--color-1:rgb(${COLORS.LOGO[2][0]});--color-2:rgb(${COLORS.LOGO[2][1]});--color-3:rgb(${COLORS.LOGO[2][2]});`}
+          >
+            J'ai élaboré des intégrations de sites web pour diverses agences (<a
+              href="/projet/10-kevin-tresor"
+              class="text-clip link-clip bg-gradient-logo"
+              >Portfolio de Kevin Tresor</a
+            >, <a
+              href="/projet/09-kt-sport-design"
+              class="text-clip link-clip bg-gradient-logo">KT Sport Design</a
+            >, <a
+              href="/projet/01-ikomobi"
+              class="text-clip link-clip bg-gradient-logo">Ikomobi</a
+            >), certaines ayant le potentiel de concourir sur
+            <a href="https://www.awwwards.com/" target="_blank">Awwwards</a>.
+          </p>
+          <p>Actuellement,</p>
+          <p>
+            Je suis disposé à explorer différentes possibilités pour améliorer
+            ou concevoir votre présence en ligne. Que ce soit pour donner un
+            nouvel élan à votre site web existant ou accroître la visibilité à
+            votre nouvelle marque, je suis là pour vous soutenir dans cette
+            démarche.
+          </p>
+
+          <p>
+            <a
+              href="#contactons-nous"
+              class="text-clip link-clip bg-gradient-logo"
+              >Prêt à concrétiser votre projet ?</a
+            >
+          </p>
+        </article>
+      </section>
+
+      <section class="animate">
+        <div class="space-y-4">
+          <div
+            class="flex justify-between"
+            style={`--color-1:rgb(${COLORS.LOGO[2][0]});--color-2:rgb(${COLORS.LOGO[2][1]});--color-3:rgb(${COLORS.LOGO[2][2]});`}
+          >
+            <TitleLink
+              number={2}
+              title="Mes projets les plus récents"
+              className="font-semibold text-clip bg-gradient-logo"
+            />
+
+            <span>
+              <a href="/projets" class="text-clip link-clip bg-gradient-logo">
+                Parcourir
+              </a>
+            </span>
+          </div>
+          <ul class="space-y-4">
+            {
+              projects.map((project) => (
+                <li>
+                  <ArrowCard entry={project} />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <section class="animate">
+        <TitleLink
+          number={2}
+          title="Mes outils et technologies de ❤️"
+          className="font-semibold text-clip bg-gradient-logo"
+        />
+
+        <p class="text-black/75 dark:text-white/75 mb-2">Je design via</p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            designs.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          Je bois du café à cause de
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            languages.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          Je construis grâce à
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            fronts.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          J'interagis et sécurise à l'aide de
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            apis.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          Je stocke des téraoctets en utilisant
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            databases.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          Je travaille depuis des années pour avoir
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <StackCard
+            text="Un email de votre part"
+            icon="contact"
+            href="#contactons-nous"
+            title="Prendre contact avec moi"
+          />
+        </div>
+
+        <p class="text-black/75 dark:text-white/75">
+          <i
+            >Je vous accompagne là où mon domaine de compétence vous permettra
+            de franchir une nouvelle étape !</i
+          >
+        </p>
+      </section>
+
+      <section class="animate">
+        <div class="space-y-4">
+          <div
+            class="flex justify-between"
+            style={`--color-1:rgb(${COLORS.LOGO[3][0]});--color-2:rgb(${COLORS.LOGO[3][1]});--color-3:rgb(${COLORS.LOGO[3][2]});`}
+          >
+            <TitleLink
+              number={2}
+              title="Mes derniers écrits"
+              className="font-semibold text-clip bg-gradient-logo"
+            />
+
+            <span>
+              <a href="/blog" class="text-clip link-clip bg-gradient-logo">
+                Feuilleter
+              </a>
+            </span>
+          </div>
+          <ul class="space-y-4">
+            {
+              posts.map((post) => (
+                <li>
+                  <ArrowCard entry={post} />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <section class="animate">
+        <TitleLink
+          number={2}
+          title="Mon workflow de production 🛠️"
+          className="font-semibold text-clip bg-gradient-logo"
+        />
+
+        <p class="text-black/75 dark:text-white/75 mb-2">J'automatise avec</p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            ops.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          Je mets mes créations en ligne via
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          {
+            deploy.map((item) => (
+              <StackCard
+                text={item.text}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))
+          }
+        </div>
+
+        <p class="text-black/75 dark:text-white/75 mb-2">
+          Envie de voir votre futur site web en ligne ?
+        </p>
+        <div class="flex flex-wrap items-center gap-2 mb-2">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <StackCard
+              text="Commençons dès maintenant"
+              icon="contact"
+              href="#contactons-nous"
+              title="Commençons dès maintenant"
+            />
+          </div>
+        </div>
+      </section>
+
+      <Contact logoId={1} />
+    </div>
+  </div>
+</PageLayout>

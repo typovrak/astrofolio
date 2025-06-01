@@ -1,0 +1,25 @@
+---
+import TwinklingStars from "@components/TwinklingStars.astro";
+import MeteorShower from "@components/MeteorShower.astro";
+---
+
+<div class="absolute inset-0 block dark:hidden">
+  <div id="particles1" class="fixed inset-0"></div>
+  <div id="particles2" class="fixed inset-0"></div>
+  <div id="particles3" class="fixed inset-0"></div>
+</div>
+
+<div class="absolute inset-0 bg-black hidden dark:block">
+  <div id="stars1" class="fixed inset-0"></div>
+  <div id="stars2" class="fixed inset-0"></div>
+  <div id="stars3" class="fixed inset-0"></div>
+</div>
+
+<div id="galaxy" class="fixed inset-0">
+  <div class="hidden dark:block">
+    <TwinklingStars />
+    <MeteorShower />
+  </div>
+</div>
+
+<script is:inline src="/js/bg.js"></script>

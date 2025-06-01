@@ -1,0 +1,231 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+import TopLayout from "@layouts/TopLayout.astro";
+import BottomLayout from "@layouts/BottomLayout.astro";
+import { formatDate } from "@lib/utils";
+import {CHANGELOG} from "@consts";
+import TitleLink from '@components/TitleLink.astro';
+import Contact from '@components/Contact.astro';
+---
+
+<PageLayout
+  title={CHANGELOG.TITLE}
+  description={CHANGELOG.DESCRIPTION}
+  keywords={CHANGELOG.KEYWORDS}
+  logoId={6}
+>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-clip bg-gradient-logo mb-2">{CHANGELOG.TITLE}</h1>
+      <p>{CHANGELOG.DESCRIPTION}</p>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <article class="animate content-gradient">
+      <TitleLink number={2} title={formatDate(new Date("07/22/2024"), true, "long")}/>
+      <ul>
+        <li>Mise en ligne de mon <a href="https://mscholz.dev/blog/02-ma-configuration-post-installation-d-arch-linux" target="_blank">second article</a> et modification du lien du bouton de la <a href="https://mscholz.dev" target="_blank">page d'accueil</a> avec redirection sur mon dernier article.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/21/2024"), true, "long")}/>
+      <ul>
+        <li>Remise en place de la <b>barre de scroll</b> dans tout le site pour une meilleure UX.</li>
+        <li>Réinitialisation de la couleur de la sélection par défaut sur PC pour une meilleure accessibilité et UX.</li>
+        <li><a href="https://mscholz.dev/blog/" target="_blank">Second article</a> fini, prêt pour la mise en ligne demain ^^</li>
+        <li>Ajout du bloc contact avec les couleurs de la page courante sur les pages :
+          <ul>
+            <li><a href="https://mscholz.dev" target="_blank">Accueil</a></li>
+            <li><a href="https://mscholz.dev/parcours" target="_blank">Parcours</a></li>
+            <li><a href="https://mscholz.dev/projets" target="_blank">Projets ainsi que chaque projet</a></li>
+            <li><a href="https://mscholz.dev/blog" target="_blank">Blog avec chaque écrit</a></li>
+            <li><a href="https://mscholz.dev/changelog" target="_blank">Changelog</a></li>
+            <li><a href="https://mscholz.dev/legale/mentions-legales" target="_blank">Mentions légales</a></li>
+            <li><a href="https://mscholz.dev/legale/credits" target="_blank">Crédits</a></li>
+          </ul>
+          Seul la page de <a href="https://mscholz.dev/rechercher" target="_blank">recherche</a> ne l'a pas avec la <a href="https://mscholz.dev/404" target="_blank">404</a> pour garder la simplicité de ces pages qui sont minimalistes.
+        </li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/20/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout d'un bouton sur la page d'<a href="https://mscholz.dev" target="_blank">accueil</a> afin d'avoir une redirection rapide sur mon dernier article en ligne !</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/18/2024"), true, "long")}/>
+      <ul>
+        <li>Suppression d'un paragraphe dans le premier bloc de texte de la page d'<a href="https://mscholz.dev" target="_blank">accueil</a>.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/14/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout d'une règle afin de ne pas mettre dans le <a href="https://mscholz.dev/rss.xml" target="_blank">flux RSS</a> les brouillons (projets ou écrits non fini).</li>
+        <li>Mise en ligne de mon premier article : <a href="https://mscholz.dev/blog/01-les-meilleurs-templates-gratuits-pour-vos-sites-web" target="_blank">Les meilleurs templates gratuits pour vos sites web</a></li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/12/2024"), true, "long")}/>
+      <ul>
+        <li>Suppression de l'apparition de <b>SQLite</b> dans la page d'<a href="https://mscholz.dev" target="_blank">Accueil</a>.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/09/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout d'un <b>compteur de vue</b> sur chaque page unique projet et blog.</li>
+        <li>Fix Firefox du text-decoration des liens ayant un gradient sur l'<a href="https://mscholz.dev" target="_blank">Accueil</a> et la page <a href="https://mscholz.dev/parcours" target="_blank">Parcours</a> du site.</li>
+        <li>Ajout de la nouvelle section <a href="https://mscholz.dev#mon-workflow-de-production" target="_blank">Mon workflow de production 🛠️</a> dans l'accueil du site sur la partie liée à la production.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/08/2024"), true, "long")}/>
+      <ul>
+        <li>Fix du bug des ancres sur les titres comprennant le caractères <b>#</b> (comme sur le titre ci-dessus) permettant le partage et la sauvegarde de lien pointant vers une section spécifique.</li>
+        <li>Création et rédaction de la page <b>Changelog</b> (celle-ci) listant les modifications apportées au site de manière chronologique.</li>
+        <li>Amélioration de l'UX des liens de titres anchrables avec des <b>icônes hyperliens</b> au lieu du caractère <b>#</b>.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/05/2024"), true, "long")}/>
+      <ul>
+        <li><b>Mise en ligne</b> du site au grand public.</li>
+        <li>Ajout de <b>lien d'ancrage pour pointer une section particulière</b> d'une page pour une sauvegarde ou partage intelligent.</li>
+        <li>Modification du contenu de la page <a href="https://mscholz.dev/legale/mentions-legales" target="_blank">lien d'ancrage pour pointer une section particulière</a>lien d'ancrage pour pointer une section particulière.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/03/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout de <a href="https://www.hotjar.com/fr" target="_blank">Hotjar</a>, <a href="https://analytics.google.com/" target="_blank">Google Analytics</a>, <a href="https://search.google.com/" target="_blank">Google Search Console</a> pour obtenir des données statistiques fiables.</li>
+        <li>Mise à jour du lien <a href="https://stats.uptimerobot.com/NAM0ASV4AB" target="_blank">Uptime Robot</a> dans le pied de page de chaque page du site.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/02/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout du contenu vidéo des projets :
+          <ul>
+            <li><a href="https://mscholz.dev/projet/02-chess-atp" target="_blank">Chess ATP</a></li>
+            <li><a href="https://mscholz.dev/projet/05-exact-form" target="_blank">Exact Form</a></li>
+            <li><a href="https://mscholz.dev/projet/08-kt-sport-design" target="_blank">KT Sport Design</a></li>
+          </ul>
+        </li>
+        <li>Ajout de l'image <a href="https://mscholz.dev/open-graph.jpg" target="_blank">Open Graph</a> qui s'affichera dans l'envoie d'un lien du site sur un réseau social ou application de messagerie.</li>
+        <li>Suppression de <a href="https://www.npmjs.com/package/@studio-freight/lenis" target="_blank">Lenis</a> car lors du lazy loading de vidéos sur les pages projets, il bloque le scroll vers la fin de la page ne permettant pas de tout lire.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("07/01/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout du contenu vidéo des projets :
+          <ul>
+            <li><a href="https://mscholz.dev/projet/09-kevin-tresor" target="_blank">Kevin Tresor</a></li>
+            <li><a href="https://mscholz.dev/projet/10-astrofolio" target="_blank">Mon portfolio de Freelance</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("06/30/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout du contenu écrit des projets restants étant :
+          <ul>
+            <li><a href="https://mscholz.dev/projet/04-pc-genius" target="_blank">PC Genius</a></li>
+            <li><a href="https://mscholz.dev/projet/05-exact-form" target="_blank">Exact Form</a></li>
+            <li><a href="https://mscholz.dev/projet/06-pixel-renovate" target="_blank">Pixel Renovate</a></li>
+            <li><a href="https://mscholz.dev/projet/07-nextfolio" target="_blank">Nextfolio</a></li>
+            <li><a href="https://mscholz.dev/projet/08-kt-sport-design" target="_blank">KT Sport Design</a></li>
+            <li><a href="https://mscholz.dev/projet/09-kevin-tresor" target="_blank">Kevin Tresor</a></li>
+            <li><a href="https://mscholz.dev/projet/10-astrofolio" target="_blank">Mon portfolio de Freelance</a></li>
+          </ul>
+        </li>
+        <li>Ajout du contenu vidéo des projets :
+          <ul>
+            <li><a href="https://mscholz.dev/projet/01-ikomobi" target="_blank">Ikomobi</a></li>
+            <li><a href="https://mscholz.dev/projet/03-workunion" target="_blank">Workunion</a></li>
+            <li><a href="https://mscholz.dev/projet/04-pc-genius" target="_blank">PC Genius</a></li>
+            <li><a href="https://mscholz.dev/projet/06-pixel-renovate" target="_blank">Pixel Renovate</a></li>
+            <li><a href="https://mscholz.dev/projet/07-nextfolio" target="_blank">Nextfolio</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("06/29/2024"), true, "long")}/>
+      <ul>
+        <li>Création d'un <b>plan à suivre</b> pour chaque projet pour faciliter la rédaction du contenu.</li>
+        <li>Ajout du contenu écrit des projets :
+          <ul>
+            <li><a href="https://mscholz.dev/projet/01-ikomobi" target="_blank">Ikomobi</a></li>
+            <li><a href="https://mscholz.dev/projet/02-chess-atp" target="_blank">Chess ATP</a></li>
+            <li><a href="https://mscholz.dev/projet/03-workunion" target="_blank">Workunion</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/14/2024"), true, "long")}/>
+      <ul>
+        <li>Démarrage de la <b>rédaction</b> de projets réalisés.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/13/2024"), true, "long")}/>
+      <ul>
+        <li>Implémentation d'une animation sur chacun de mes logos présents sur le site.</li>
+        <li>Ajout d'un log dans la console du navigateur afin de <i>signer</i> mon site.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/11/2024"), true, "long")}/>
+      <ul>
+        <li>Suppression des barres de scroll et ajout de la librairie <a href="https://www.npmjs.com/package/@studio-freight/lenis" target="_blank">Lenis</a> pour avoir un scroll donnant un effet <b>smooth</b>.</li>
+        <li>Création d'un suivi statistique afin de pouvoir savoir quelles sont les pages les plus et moins visitées ainsi que sur quel appareil.</li>
+        <li>Mise en place de modules pour utiliser <a href="https://vercel.com" target="_blank">Vercel</a> comme hébergement.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/10/2024"), true, "long")}/>
+      <ul>
+        <li>Implémentation du style des titres et liens avec <b>gradients</b> (comme le titre ci-dessus).</li>
+      </ul>
+
+
+      <TitleLink number={2} title={formatDate(new Date("05/09/2024"), true, "long")}/>
+      <ul>
+        <li>Perfectionnement du contenu de la page <a href="https://mscholz.dev/parcours" target="_blank">Parcours</a> en y mettant le liens des projets qui y sont associés ainsi que la date de chaque parcours.</li>
+        <li>Ajout de la page de <a href="https://mscholz.dev/legale/credits" target="_blank">Crédits</a> pour remercier les créateurs des solutions utilisées pour le développement de ce site.</li>
+        <li>Ajout de mon nouveau logo et implémentation du système de logo unique par type de page.</li>
+        <li>Modification du fond de chaque page pour la version <b>claire</b> et <b>sombre</b> en le rendant dynamique par des <b>étoiles et étoiles filantes</b> ou des <b>points flottants</b>.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/06/2024"), true, "long")}/>
+      <ul>
+        <li>Création d'une page <a href="https://mscholz.dev/404" target="_blank">404</a>.</li>
+        <li>Amélioration du <a href="https://mscholz.dev/sitemap-index.xml" target="_blank">Sitemap</a> en enlevant le slash à la fin de chaque lien présent.</li>
+        <li>Choix et création des pages de chaque <a href="https://mscholz.dev/projets" target="_blank">Projet</a> sans y mettre leur contenu.</li>
+        <li>Changement du style du bloc <a href="https://mscholz.dev/#contactons-nous" target="_blank">Contact</a> de la page d'accueil pour y donner un effet arc-en-ciel ce qui rend la page plus dynamique.</li>
+        <li>Ajout d'un bouton dans l'en-tête sur chaque page du site pour télécharger mon CV.</li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/04/2024"), true, "long")}/>
+      <ul>
+        <li>Ajout de nouveaux outils et des icônes du bloc <a href="https://mscholz.dev/#mes-outils-et-technologies-de" target="_blank">Mes outils et technologies de ❤️</a>.</li>
+        <li>Traduction des routes :
+            <ul>
+                <li><b>/work</b> en <b>/parcours</b>.</li>
+                <li><b>/search</b> en <b>/rechercher</b>.</li>
+                <li><b>/projets/00-nom-du-projet</b> en <b>/projet/00-nom-du-projet</b>.</li>
+            </ul>
+        </li>
+        <li>Traductions des liens et boutons d'actions dans tout le site.</li>
+        <li>Passage des dates du format anglais au format français.</li>
+        <li>Ajout du lien de conversion à la fin du bloc <a href="https://mscholz.dev/#mes-outils-et-technologies-de" target="_blank">Mes outils et technologies de ❤️</a>.</li>
+        <li>Ajout du contenu de la page <a href="https://mscholz.dev/parcours" target="_blank">Parcours</a> pour mes expériences chez :
+            <ul>
+                <li><a href="https://mscholz.dev/parcours#ikomobi" target="_blank">Ikomobi</a>.</li>
+                <li><a href="https://mscholz.dev/parcours#workunion" target="_blank">Workunion</a>.</li>
+                <li><a href="https://mscholz.dev/parcours#kt-sport-design" target="_blank">KT Sport Design</a>.</li>
+            </ul>
+        </li>
+      </ul>
+
+      <TitleLink number={2} title={formatDate(new Date("05/03/2024"), true, "long")}/>
+      <ul>
+        <li>Premier test en développement du template <a href="https://astro.build/themes/details/astrosphere/" target="_blank">Astro Sphere</a> pour ce site.</li>
+        <li>Mise en préproduction sur le domaine <a href="https://astro.mscholz.dev" target="_blank">astro.mscholz.dev</a> pour tester le template sous la version production et sur mobile.</li>
+        <li>Création du contenu du bloc <a href="https://mscholz.dev" target="_blank">Introduction</a> de la page d'accueil.</li>
+        <li>Ajout du contenu du bloc <a href="https://mscholz.dev/#mes-outils-et-technologies-de" target="_blank">Mes outils et technologies de ❤️</a> de la page d'accueil.</li>
+        <li>Ajout du contenu du bloc <a href="https://mscholz.dev/#contactons-nous" target="_blank">Contact</a> de la page d'accueil.</li>
+      </ul>
+    </article>
+
+    <Contact logoId={6} />
+  </BottomLayout>
+</PageLayout>

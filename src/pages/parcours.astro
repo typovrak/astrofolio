@@ -1,0 +1,92 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import TopLayout from "@layouts/TopLayout.astro";
+import BottomLayout from "@layouts/BottomLayout.astro";
+import { WORK, COLORS } from "@consts";
+import TitleLink from "@components/TitleLink.astro";
+import Contact from "@components/Contact.astro";
+
+const collection = await getCollection("parcours");
+
+collection.sort(
+  (a, b) =>
+    new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime()
+);
+
+const work = await Promise.all(
+  collection.map(async (item) => {
+    const { Content } = await item.render();
+    return { ...item, Content };
+  })
+);
+
+function formatWorkDate(input: Date | string): string {
+  if (typeof input === "string") return input;
+
+  const month = input.toLocaleDateString("fr", {
+    month: "long",
+  });
+
+  const year = new Date(input).getFullYear();
+  return `${month} ${year}`;
+}
+
+function displayWorkDateDiff(
+  startDate: Date | string,
+  endDate: Date | string
+): string {
+  const start = typeof startDate === "string" ? new Date(startDate) : startDate;
+  const end = typeof endDate === "string" ? new Date(endDate) : endDate;
+
+  const diffYears = end.getFullYear() - start.getFullYear();
+  const diffMonths = end.getMonth() - start.getMonth() + 12 * diffYears;
+
+  const displayYears = Math.floor(diffMonths / 12);
+
+  return `${displayYears > 0 ? `${displayYears} an${displayYears > 1 ? "s" : ""} et ` : ``}${diffMonths % 12} mois`;
+}
+---
+
+<PageLayout
+  title={WORK.TITLE}
+  description={WORK.DESCRIPTION}
+  keywords={WORK.KEYWORDS}
+  logoId={2}
+>
+  <TopLayout>
+    <h1 class="animate text-3xl font-semibold text-clip bg-gradient-logo">
+      {WORK.TITLE}
+    </h1>
+  </TopLayout>
+  <BottomLayout>
+    <ul>
+      {
+        work.map((entry) => (
+          <li class="animate border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none">
+            <div class="text-sm uppercase mb-4">
+              {formatWorkDate(entry.data.dateStart)} —{" "}
+              {formatWorkDate(entry.data.dateEnd)} ▸{" "}
+              {displayWorkDateDiff(entry.data.dateStart, entry.data.dateEnd)}
+            </div>
+
+            <TitleLink number={2} title={entry.data.company} className="text-2xl text-black dark:text-white font-semibold text-clip bg-gradient-logo"/>
+            <div class="text-sm font-semibold">{entry.data.role}</div>
+            <div class="text-sm mb-4">
+              <i>{entry.data.location}</i>
+            </div>
+
+            <article
+              class="prose dark:prose-invert prose-title-inherit work-content"
+              style={`--color-project-1:rgb(${COLORS.LOGO[2][0]});--color-project-2:rgb(${COLORS.LOGO[2][1]});--color-project-3:rgb(${COLORS.LOGO[2][2]});`}
+            >
+              <entry.Content />
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+
+    <Contact logoId={2} />
+  </BottomLayout>
+</PageLayout>

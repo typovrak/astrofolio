@@ -1,0 +1,29 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+import { NOTFOUND, COLORS } from "@consts";
+import TopLayout from "@layouts/TopLayout.astro";
+---
+
+<PageLayout
+  title={NOTFOUND.TITLE}
+  description={NOTFOUND.DESCRIPTION}
+  keywords={NOTFOUND.KEYWORDS}
+  logoId={6}
+>
+  <TopLayout>
+    <section class="animate">
+      <article>
+        <h1 class="text-3xl font-semibold uppercase text-clip bg-gradient-logo">
+          404
+        </h1>
+        <p>La page que vous chercher n'existe pas ou plus.</p>
+        <a
+          href="/"
+          class="text-clip link-clip bg-gradient-logo"
+          style={`--color-1:rgb(${COLORS.LOGO[0][0]});--color-2:rgb(${COLORS.LOGO[0][1]});--color-3:rgb(${COLORS.LOGO[0][2]});`}
+          >Revenir à l'accueil</a
+        >
+      </article>
+    </section>
+  </TopLayout>
+</PageLayout>

@@ -1,0 +1,34 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import TopLayout from "@layouts/TopLayout.astro";
+import BottomLayout from "@layouts/BottomLayout.astro";
+import Search from "@components/Search";
+import { SEARCH } from "@consts";
+
+const posts = (await getCollection("blog")).filter((post) => !post.data.draft);
+
+const projects = (await getCollection("projet")).filter(
+  (post) => !post.data.draft
+);
+
+const data = [...posts, ...projects] as CollectionEntry<"blog">[];
+---
+
+<PageLayout
+  title={SEARCH.TITLE}
+  description={SEARCH.DESCRIPTION}
+  keywords={SEARCH.KEYWORDS}
+  logoId={5}
+>
+  <TopLayout>
+    <h1 class="animate text-3xl font-semibold text-clip bg-gradient-logo">
+      {SEARCH.TITLE}
+    </h1>
+  </TopLayout>
+  <BottomLayout>
+    <section class="animate">
+      <Search client:load data={data} />
+    </section>
+  </BottomLayout>
+</PageLayout>

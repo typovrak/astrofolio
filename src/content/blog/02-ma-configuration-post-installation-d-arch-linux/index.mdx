@@ -1,0 +1,627 @@
+---
+title: "Ma configuration post-installation d'Arch Linux"
+summary: "Découvrez ma configuration détaillée après l'installation d'Arch Linux comprennant mes paquets et ma configuration ZSH"
+keywords:
+  - "Arch Linux"
+  - "GNOME"
+  - "Configuration"
+  - "Développement"
+  - "Post-installation"
+date: 'Jul 22 2024'
+draft: false
+tags:
+  - "Arch Linux"
+  - "Pour développeurs"
+---
+
+import TitleLink from '@/components/TitleLink.astro';
+import { Image } from 'astro:assets';
+
+<TitleLink number={2} title="1 ▸ Environnement de bureau"/>
+
+Mon environnement de bureau est GNOME, car il est simple,
+performant et ne nécessite que très peu de personnalisation pour répondre à mes besoins.
+
+Image de mon environnement GNOME :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/gnome.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Mon environnement GNOME"
+/>
+
+<TitleLink number={2} title="2 ▸ Yay (Yet Another Yaourt)"/>
+
+Yay permet d'installer des paquets directement depuis l'AUR,
+une immense collection de logiciels maintenus par la communauté.
+Cela donne accès à une vaste gamme de logiciels qui ne sont pas disponibles dans les dépôts officiels de Pacman.
+
+Je commence par lancer un terminal et installer git :
+
+```bash
+sudo pacman -S --needed base-devel git
+```
+
+Ensuite, je clone le dépôt distant de Yay, un gestionnaire de paquets plus simple
+à utiliser et qui permet de mettre à jour pacman facilement sans devoir changer
+les listes de miroirs toutes les 2 semaines :
+
+```bash
+git clone https://aur.archlinux.org/yay.git
+```
+
+Je me rends dans le dossier cloné de Yay :
+
+```bash
+cd yay
+```
+
+Puis, j'exécute le script d'installation :
+
+```bash
+makepkg -si
+```
+
+Pour vérifier que Yay est bien installé, je lance la commande suivante :
+
+```bash
+yay --version
+```
+
+Yay va nous permettre de mettre à jour notre système entièrement avant de procéder aux futures installations :
+
+```bash
+yay -u  
+```
+
+Et voilà ! Il est conseillé de mettre à jour votre système chaque semaine avec la commande
+ci-dessus pour éviter de gros changements d'un coup,
+ce qui pourrait casser plusieurs applications en même temps.
+
+Par expérience, Docker par exemple peut rencontrer des problèmes après une mise à jour du système. Pour résoudre cela, il suffit de redémarrer votre ordinateur et Docker fonctionnera comme neuf et sera à jour si nécessaire !
+
+Image illustrant l'erreur que j'ai avec Docker après une mise à jour du système sans redémarrer mon PC :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/docker-after-yay-u.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Erreur Docker après une mise à jour système sans redémarrer son ordinateur"
+/>
+
+<TitleLink number={2} title="3 ▸ Mes paquets indispensables"/>
+
+La commande ci-dessous permet d'installer 19 paquets indispensables sur chaque système Linux que j'utilise :
+
+```bash
+sudo pacman -S chromium firefox flatpak docker docker-compose zsh fzf zoxide neovim npm nodejs gdu lazygit earlyoom rpi-imager tmux filezilla gedit
+```
+
+Voici pourquoi j'installe chaque paquet :
+- **chromium :** Mon navigateur préféré pour ses performances exceptionnelles.
+- **firefox :** Je l'utilise uniquement pour tester mes sites web ou modifier des requêtes réseau.
+- **flatpak :** Pour accéder aux applications de <a href="https://flathub.org/" target="_blank">Flathub</a> directement dans l'application Software de GNOME.
+- **docker :** Mon outil de développement et de mise en production favori.
+- **docker-compose :** Une amélioration de Docker pour gérer les services multi-conteneurs.
+- **zsh :** Pour la <b class="bg-gradient-logo text-clip">coloration</b>, l'autocomplétion et bien d'autres fonctionnalités dans le terminal.
+- **fzf :** Un outil de fuzzy finding pour trouver des fichiers et commandes rapidement.
+- **zoxide :** Permet de naviguer dans les dossiers en fonction de l'historique et des fréquences de recherche.
+- **neovim :** Mon futur éditeur de texte, le dernier une fois que j'aurai le courage de m'y mettre 😅.
+- **npm :** Pour l'installation de paquets Node.js et le développement d'applications Node.js en local.
+- **nodejs :** Le langage que j'utilise pour créer des sites web et des API.
+- **gdu :** Pour surveiller les dossiers qui prennent le plus d'espace sur mes disques.
+- **lazygit :** Un outil que j'utilise pour lire mes historiques de commit, car je n'utilise jamais git hors du terminal 😎.
+- **earlyoom :** Pour surveiller l'utilisation de ma RAM en temps réel en cas de problème.
+- **rpi-imager :** Pour créer des clés bootables pour mon Raspberry Pi.
+- **tmux :** Pour gérer des sessions dans le terminal, indispensable avec neovim.
+- **filezilla :** Client SFTP que j'utilise pour la documentation destinée à des personnes non techniques.
+- **gedit :** Vim ne fonctionne pas avec Filezilla pour l'édition de fichiers, donc j'utilise gedit. VIM > tout le reste.
+
+Si vous avez lu toute la liste ci-dessus, c'est que vous êtes sûrement comme beaucoup
+de développeurs à la recherche des <b>meilleurs outils pour être plus productif !</b>
+
+Pour finir la première étape de ce setup, j'installe nvm via Yay,
+car impossible avec pacman et via git serait plus compliqué et moins stable :
+
+```bash
+yay -S nvm
+```
+
+Pour finir cette première étape,
+il faut redémarrer votre PC pour que flatpak se lie à l'application Software de GNOME.
+Pour le faire dans le terminal, exécutez la commande :
+
+```bash
+reboot
+```
+
+Cette commande est indispensable pour flex, <b>rien de plus.</b>
+
+Une fois le PC redémarré, dans l'application Software de GNOME,
+il sera possible d'installer n'importe quelle application de <a href="https://flathub.org/" target="_blank">Flathub</a> depuis ce logiciel !
+
+Image montrant la liaison entre Flathub et l'application Software de GNOME :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/flathub-with-software.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Liaison entre Flathub et l'application Software de GNOME"
+/>
+
+<TitleLink number={2} title="4 ▸ Configuration de Docker"/>
+
+Nous avons déjà installé les paquets de Docker qui sont <b>docker</b> et <b>docker-compose</b>,
+mais il faut démarrer le service Docker et automatiser son démarrage afin qu'à chaque reboot,
+il soit opérationnel sans aucune commande de notre part. Pour cela, il faut exécuter :
+
+```bash
+sudo systemctl start docker.service
+```
+
+Cela va démarrer Docker, qui est maintenant opérationnel pour cette session.
+
+Il faut ensuite le rendre opérationnel après chaque redémarrage du PC :
+
+```bash
+sudo systemctl enable docker.service
+```
+
+Maintenant, il faut donner à notre utilisateur la possibilité d'utiliser
+Docker sans demander les droits administratifs (sans utiliser sudo devant une commande).
+Pour cela, il faut ajouter notre utilisateur au groupe docker :
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Ensuite, il faut créer le groupe docker ou du moins s'assurer qu'il existe :
+
+```bash
+newgrp docker
+```
+
+La dernière chose à faire est de tester Docker.
+Pour cela, on va lancer l'image <b>hello-world</b> qui est une image de test :
+
+```bash
+docker run hello-world  
+```
+
+Image du rendu attendu dans le terminal au lancement de la commande au-dessus :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/docker-hello-world.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Prompt de la commande docker run hello-world dans un terminal"
+/>
+
+
+Si la première ligne du prompt est : **Hello from Docker!** (comme sur l'image ci-dessus), alors je vous félicite, Docker est opérationnel sur votre machine!
+
+<TitleLink number={2} title="5 ▸ Début de la configuration ZSH"/>
+
+Il est temps de configurer ZSH car **bash c'est bien mais ZSH, c'est mieux !**
+
+ZSH est déjà installé sur la machine, donc il va falloir le mettre comme shell
+par défaut dans chaque futur terminal. Pour cela, il faut changer le shell par défaut :
+
+```bash
+chsh $USER
+```
+
+Image du prompt de la commande ci-dessus :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/chsh-user.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Prompt de la commande chsh $USER dans un terminal"
+/>
+
+Cette commande, une fois que vous avez entré votre mot de passe,
+vous demandera de changer le shell par défaut de votre utilisateur.
+La variable **$USER** permet que cette commande ait le même résultat pour tout le monde,
+car <b>$USER est le nom de l'utilisateur courant de la session.</b>
+
+Quand le prompt demandant le nouveau shell s'affiche, inscrivez cette valeur :
+
+```bash
+/usr/bin/zsh
+```
+
+C'est le chemin du nouveau shell qui sera ZSH au lieu de bash.
+
+Pour vérifier que tout s'est bien passé, la commande ci-dessous doit afficher la valeur **/usr/bin/zsh** :
+
+```bash
+echo $SHELL
+```
+
+Image du rendu attendu dans le terminal de la commande ci-dessus :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/echo-shell.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Prompt de la commande echo $SHELL dans un terminal"
+/>
+
+Il ne reste qu'une étape : ajouter une configuration ZSH pour personnaliser votre environnement,
+y compris des commandes custom ou un thème personnalisé.
+
+Pour ajouter la configuration ZSH, il faut créer un fichier .zshrc à la racine du
+dossier home de votre utilisateur, ou en utilisant la commande suivante :
+
+```bash
+vim ~/.zshrc
+```
+
+Voici ma propre configuration à ajouter, si vous en avez une autre, mettez la votre :
+```bash
+# init ssh agent
+eval "$(ssh-agent -s)" &>/dev/null
+# load custom ssh keys
+#ssh-add ~/.ssh/github &>/dev/null
+#ssh-add ~/.ssh/gitlab &>/dev/null
+
+source /usr/share/nvm/init-nvm.sh
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+if [[ -f "/opt/homebrew/bin/brew" ]] then
+  # If you're using macOS, you'll want this enabled
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Add in Powerlevel10k
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# Add in zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+# Add in snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::archlinux
+zinit snippet OMZP::aws
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::command-not-found
+
+# Load completions
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Keybindings
+bindkey -v
+
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# Aliases
+alias ls='ls --color'
+alias c="clear"
+alias e="exit"
+alias vim="nvim"
+alias v="nvim"
+alias vi="nvim"
+alias view="nvim -R"
+alias vimdiff="nvim -d"
+
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+```
+
+Pour appliquer cette configuration, il faut recharger ZSH :
+
+```bash
+source ~/.zshrc
+```
+
+J'ai commenté l'initialisation des clés SSH GitHub et GitLab.
+Vous pouvez les décommenter si vous avez ces clés SSH avec les mêmes noms ou y ajouter les vôtres.
+
+Si vous utilisez la configuration au-dessus, les aliases pour l'utilisation de
+<a href="https://neovim.io" target="_blank">Neovim</a> sont déjà en place ainsi que
+l'ajout des couleurs sur la commande <b>ls</b> :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/ls-prompt.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Prompt de la commande ls dans un terminal"
+/>
+
+Il y a aussi la commande <b>exit</b> qui a un alias sur <b>e</b> afin de quitter un terminal en une lettre, le même type
+d'alias est présent pour nettoyer le terminal, avec <b>clear</b> alias à la lettre <b>c</b>.
+
+<TitleLink number={2} title="6 ▸ Ajout d'une NerdFont"/>
+
+Cette configuration vous demandera, lors de la prochaine session de terminal
+(en ouvrant un nouveau terminal ou en sourçant le fichier de configuration), de configurer votre thème.
+
+Avant cela, il faut ajouter une police appelée NerdFont.
+Ces polices possèdent des icônes et des caractères supplémentaires spécialement
+conçus pour des thèmes de terminal attrayants.
+
+Pour en installer une, rendez-vous sur <a href="https://nerdfonts.com/font-downloads" target="_blank">ce site</a>
+pour en télécharger une. Personnellement, j'utilise celle de JetBrains
+pour sa lisibilité en codant, même si Fira Code reste ma police de ❤️ que j'utilise de temps en temps pour changer.
+
+Une fois l'installation faite, décompressez le dossier dans le dossier
+**Téléchargements** en double-cliquant dessus. Entrez dans le dossier décompressé et
+supprimez les fichiers **LICENCE.txt** et **README.md**.
+
+Ensuite, ouvrez un autre explorateur de fichiers et allez au chemin `/home/$USER/.local/share/fonts` (remplacez $USER par le nom de votre utilisateur).
+Créez le dossier fonts s'il n'existe pas et placez toutes les polices téléchargées à la racine de ce dossier.
+Le dossier fonts ne doit pas contenir de sous-dossiers, uniquement des fichiers de police.
+
+Ensuite, il suffit de définir la police téléchargée dans la configuration de votre terminal, et vous pourrez configurer le thème ZSH avec votre NerdFont pour avoir plein d'icônes de geek !
+
+Pour mettre votre police dans la configuration de votre terminal, appuyez sur les trois barres horizontales puis allez dans **Préférences**. Choisissez votre police. Attention, s'il y a deux versions de votre police, une Mono et une non Mono, sélectionnez celle qui ne contient pas le mot **Mono** pour un meilleur rendu dans le terminal.
+
+Image illustrant comment accéder au paramètre pour changer la police du terminal :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/preferences-icone.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Capture d'écran pour montrer comment accéder au paramètre Préférences"
+/>
+
+C'est aussi ici que vous pouvez régler la taille de la police.
+Avec JetBrains, je mets du 12 pour éviter de me fatiguer les yeux 👁️👁️ inutilement.
+
+Image montrant ma NerdFont configuré dans mon terminal :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/preferences-nerd-font.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="NerdFont configuré correctement dans les préférences de mon terminal GNOME"
+/>
+
+<TitleLink number={2} title="7 ▸ Finir la configuration ZSH"/>
+
+Lancer un nouveau terminal et faites la configuration du thème en répondant aux questions qui sont posées selon vos préférences. Cela vous donnera un thème à la fin. Pour en savoir plus, voici la <a href="https://github.com/romkatv/powerlevel10k" target="_blank">documentation</a>.
+
+Image du rendu de mon thème avec cette configuration :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/zsh-theme.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Rendu de mon thème ZSH avec ma configuration ZSH"
+/>
+
+<TitleLink number={2} title="8 ▸ Configuration SSH"/>
+
+Le service SSH n'est pas activé par défaut,
+ce qui empêche de cloner des dépôts distants via SSH ou de se connecter à des VPS.
+Pour remédier à cela, procédons comme pour Docker et lançons le service :
+
+```bash
+sudo systemctl start sshd
+```
+
+Ensuite, configurez le service SSH pour qu'il se lance automatiquement au démarrage :
+
+```bash
+sudo systemctl enable sshd
+```
+
+Créons maintenant un dossier pour stocker toutes nos clés SSH :
+
+```bash
+mkdir ~/.ssh
+```
+
+Modifions les permissions de ce dossier pour des raisons de sécurité :
+
+```bash
+chmod 700 ~/.ssh
+```
+
+Accédez à ce dossier :
+
+```bash
+cd ~/.ssh
+```
+
+Si vous avez des clés SSH, ajoutez-les, mais assurez-vous de modifier leurs permissions pour éviter qu'elles
+soient considérées comme publiques et donc non sécurisées.
+Pour cela, chaque clé privée doit avoir les permissions suivantes (exemple avec mes clés github et gitlab) :
+
+```bash
+chmod 600 github gitlab
+```
+
+Et chaque clé publique doit avoir ces permissions (exemple avec mes clés github.pub et gitlab.pub):
+
+```bash
+chmod 644 github.pub gitlab.pub
+```
+
+SSH est désormais opérationnel, rien de bien complexe 😉 !
+
+<TitleLink number={2} title="9 ▸ Configuration de Git"/>
+
+Si, comme moi, vous utilisez Git uniquement dans le terminal,
+il est nécessaire de configurer le nom, l'email, et la branche par défaut de Git pour qu'elle soit nommée <b>main</b>
+plutôt que <b>master</b>.
+
+Pour configurer le nom d'utilisateur (remplacez par vos informations) :
+
+```bash
+git config --global user.name "Prénom NOM"
+```
+
+Pour configurer l'email (remplacez par votre adresse email) :
+
+```bash
+git config --global user.email mon.email@gmail.com
+```
+
+Pour définir la branche par défaut sur <b>main</b> (ne rien modifier) :
+
+```bash
+git config --global init.defaultBranch main
+```
+
+Si vous êtes curieux, ces commandes sont équivalentes à ajouter un fichier de configuration se nommant <b>.gitconfig</b>
+à la racine du répertoire votre utilisateur, pour afficher le résultat de votre configuration, éxecutez cette commande :
+
+```bash
+cat ~/.gitconfig
+```
+
+Ce fichier est au format <a href="https://en.wikipedia.org/wiki/INI_file" target="_blank">Ini</a>, un des nombreux formats de configurations disponibles parmis des dizaines !
+
+<TitleLink number={2} title="10 ▸ Installation de mes applications essentielles via Flathub"/>
+
+Il reste une dernière étape : l'installation d'applications telles que <b>Slack</b> ou <b>VLC</b>,
+qui ne peut pas se faire via le terminal avec yay ou pacman.
+
+Grâce à Flatpak, que nous avons installé précédemment, l'application Software sur GNOME est désormais
+liée à <a href="https://flathub.org" target="_blank">Flathub</a>, ce
+qui permet d'installer ces applications directement depuis GNOME, sans passer par un téléchargement sur le web !
+
+Personnellement, j'installe :
+- <a href="https://flathub.org/apps/com.slack.Slack" target="_blank"><b>Slack :</b></a> pour la communication en entreprise.
+- <a href="https://flathub.org/apps/md.obsidian.Obsidian" target="_blank"><b>Obsidian :</b></a> pour mes notes personnelles (je ferai un bref article à ce sujet quand je manquerai d'idées ou de temps).
+- <a href="https://flathub.org/apps/com.obsproject.Studio" target="_blank"><b>OBS :</b></a> pour l'enregistrement de vidéos avec webcam, car GNOME gère bien la capture vidéo simple nativement.
+- <a href="https://flathub.org/apps/org.videolan.VLC" target="_blank"><b>VLC :</b></a> pour visionner des vidéos, car GNOME Vidéo est souvent bogué 🐞.
+- <a href="https://flathub.org/apps/com.mattjakeman.ExtensionManager" target="_blank"><b>Extension manager :</b></a> pour personnaliser mon environnement GNOME.
+
+<TitleLink number={2} title="11 ▸ Customisation de mon environnement GNOME"/>
+
+<TitleLink number={3} title="11.1 ▸ Augmenter la limite du volume sonore entrant et sortant à 150%"/>
+
+Pour réaliser cela sous l'environnement GNOME, exécutez cette commande :
+
+```bash
+gsettings set org.GNOME.desktop.sound allow-volume-above-100-percent 'true'
+```
+Image montrant l'augmentation du volume sonore maximum à 150% (la barre rouge représente les 50% bonus) :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/volume-boost.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Augmentation du volume sonore maximum à 150%"
+/>
+
+<TitleLink number={3} title="11.2 ▸ GNOME Tweaks"/>
+
+Je ne modifie qu'une seule option : <b>Minimize</b>.
+Je coche cette option pour ajouter le bouton de réduction sur chaque fenêtre, ce qui est indispensable pour moi.
+
+Image montrant l'option <b>Minimize</b> cochée :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/gnome-tweaks-minimize.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Option Minimize cochée dans GNOME Tweaks"
+/>
+
+<TitleLink number={3} title="11.3 ▸ Extension Manager"/>
+
+J'installe trois extensions :
+- **Just Perfection :** Permet de personnaliser en profondeur l'interface GNOME. Personnellement, je change seulement quelques éléments comme l'affichage des pourcentages de la batterie et le layout de clavier, car j'utilise plusieurs layouts au quotidien.
+- **Quick Settings Audio Panel :** Ajoute une section dans le menu des paramètres, accessible en haut à droite, pour régler le son de chaque application.
+- **Tray Icons: Reloaded :** Affiche les applications en arrière-plan, comme Discord ou Slack, dans la zone de notification en haut à droite de l'écran.
+
+Image affichant mes extensions :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/gnome-extensions.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Mes extensions dans mon Extension manager"
+/>
+
+Image du rendu avec l'extension <b>Quick Settings Audio Panel</b> :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/quick-settings-audio-panel.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Capture de la feature qu'offre l'extension Quick Settings Audio Panel"
+/>
+
+Image affichant les applications tournant un arrière plan (ici Slack) avec l'extension <b>Tray Icons: Reloaded</b> :
+<Image
+  src={'/img/blog/02-ma-configuration-post-installation-d-arch-linux/tray-icons-reloaded.jpg'}
+  width="1920"
+  height="1080"
+  density={2}
+  quality={100}
+  alt="Capture de la feature qu'offre l'extension Tray Icons: Reloaded"
+/>
+
+<TitleLink number={2} title="12 ▸ Dernier mot pour la fin"/>
+
+En suivant ces étapes, vous devriez avoir une configuration d'Arch Linux fonctionnelle et optimisée pour le développement. N'oubliez pas de mettre régulièrement à jour votre système et vos paquets pour bénéficier des dernières améliorations et corrections de bugs.
+
+Bon développement et merci d'avoir lu mon article !
